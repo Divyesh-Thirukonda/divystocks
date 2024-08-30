@@ -45,16 +45,16 @@
 
 ### Home Page
 The home page displays:
-- A list of projects.
-- The latest NYT article titles.
-- Forex data.
-- Top gainers and losers in the stock market.
+- The latest NYT article titles, Forex data, and Top gainers and losers in the stock market.
 - User's watchlist (if authenticated).
 
 ### Watchlist Management
 Authenticated users can add or remove stocks from their watchlist using the following endpoints:
 - Add to watchlist: `/add/<symbol>/`
 - Remove from watchlist: `/remove/<symbol>/`
+
+### Quote
+Users can view more details about a stock using the search endpoint: `/quote/<symbol>/`
 
 ### Search
 Users can search for specific stocks using the search endpoint: `/search/`
@@ -69,12 +69,11 @@ Users can search for specific stocks using the search endpoint: `/search/`
 - `search`: Allows users to search for specific stocks.
 
 ### Models
-- `Project`: Represents a project with a title, description, image, and URL.
 - `ArticleTitle`: Stores the latest NYT article title.
 - `UserProfile`: Manages the user's watchlist.
 
 ### Utilities
-- `fetch_data.py`: Contains functions to fetch data from external APIs:
+- `fetch_data.py`: Contains functions to fetch data from external APIs. Examples:
   - `fetch_nyt_article_title`: Fetches the latest NYT article titles.
   - `fetch_forex`: Fetches forex data.
   - `fetch_gainLose`: Fetches top gainers and losers in the stock market.

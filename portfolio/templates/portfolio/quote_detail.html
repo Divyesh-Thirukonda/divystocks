@@ -125,10 +125,27 @@
             color: #333;
             float: right;
         }
+        .home-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .home-btn:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <header>
+        <a href="{% url 'home' %}">
+            <button class="home-btn">←</button>
+        </a>
         <h1>Quote for {{ income_statement_data.name }}</h1>
     </header>
     <div class="quote-container">

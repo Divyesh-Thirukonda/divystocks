@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Quote Details</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            color: #fff;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        p {
+            color: #666;
+        }
+
+        /* Quote Styles */
+        .quote-container {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 20px auto;
+            width: 20%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .quote-header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .quote-details {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .change {
+            font-weight: bold;
+        }
+
+        .change.up {
+            color: green;
+        }
+
+        .change.down {
+            color: rgb(165, 14, 14);
+        }
+
+        .change-percent {
+            font-weight: bold;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .change-percent.up {
+            color: green;
+            background-color: #ccffcc;
+        }
+
+        .change-percent.down {
+            color: rgb(165, 14, 14);
+            background-color: rgb(238, 160, 153);
+        }
+
+        .remove-btn {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .remove-btn:hover {
+            background-color: #555;
+        }
+
+        /* Variable Style */
+        .variable {
+            font-weight: bold;
+            color: #333;
+            float: right;
+        }
+
+        /* Link Styles */
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .left {
+            float: left;
+        }
+
+        .right {
+            font-weight: bold;
+            color: #333;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Quote for {{ income_statement_data.name }}</h1>
+    </header>
+    <div class="quote-container">
+        <div class="quote-header">{{ stock_data.symbol }} : {{ stock_data.exchange }}</div>
+        <div class="quote-details">
+            <span class="price">${{ stock_data.price|floatformat:2 }}</span>
+            {% if stock_data.is_up %}
+                <span class="change up" style="margin-right: 10px; margin-left: 10px;">+{{ stock_data.change|floatformat:2 }}</span>
+                <span class="change-percent up">+{{ stock_data.change_percent|floatformat:2 }}%</span>
+            {% else %}
+                <span class="change down" style="margin-right: 10px; margin-left: 10px;">-{{ stock_data.change|floatformat:2 }}</span>
+                <span class="change-percent down">-{{ stock_data.change_percent|floatformat:2 }}%</span>
+            {% endif %}
+            <p>EPS: <span class="variable">{{ income_statement_data.EPS }}</span></p>
+            <p>PE Ratio: <span class="variable">{{ income_statement_data.PERatio }}</span></p>
+            <p>Market Capitalization: <span class="variable">{{ income_statement_data.MarketCapitalization }}</span></p>
+            <p>EBITDA: <span class="variable">{{ income_statement_data.EBITDA }}</span></p>
+            <p>PEG Ratio: <span class="variable">{{ income_statement_data.PEGRatio }}</span></p>
+            <p>Dividend Per Share: <span class="variable">{{ income_statement_data.DividendPerShare }}</span></p>
+            <p>Dividend Yield: <span class="variable">{{ income_statement_data.DividendYield }}</span></p>
+        </div>
+
+        {% if user.is_authenticated %}
+            <!-- Show button based on whether the item is in the watchlist -->
+            {% if in_watchlist %}
+                <form action="{% url 'remove_from_watchlist' stock_data.symbol %}" method="post">
+                    {% csrf_token %}
+                    <button class="remove-btn" type="submit">Remove from Watchlist</button>
+                </form>
+            {% else %}
+                <form action="{% url 'add_to_watchlist' stock_data.symbol %}" method="post">
+                    {% csrf_token %}
+                    <button class="remove-btn" type="submit">Add to Watchlist</button>
+                </form>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>

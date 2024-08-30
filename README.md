@@ -2,7 +2,7 @@
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/myportfolio.git
+    git clone https://github.com/Divyesh-Thirukonda/divystocks.git
     cd myportfolio
     ```
 

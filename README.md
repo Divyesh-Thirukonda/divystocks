@@ -52,9 +52,11 @@ The home page displays:
 Authenticated users can add or remove stocks from their watchlist using the following endpoints:
 - Add to watchlist: `/add/<symbol>/`
 - Remove from watchlist: `/remove/<symbol>/`
+They can view the price, price change, and change percent. Watchlist should be sorted by change percent.
 
 ### Quote
-Users can view more details about a stock using the search endpoint: `/quote/<symbol>/`
+Users can view more details (Price, EPS, EBITDA) about a stock using the search endpoint: `/quote/<symbol>/`
+If an account exists, the user can add/remove from watchlist on this page
 
 ### Search
 Users can search for specific stocks using the search endpoint: `/search/`
